@@ -13,3 +13,7 @@ spring:
     port: 5672
     username: plei
     password: plei
+
+
+wokao:
+  test: worio
