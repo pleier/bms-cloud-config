@@ -1,0 +1,27 @@
+server:
+  undertow:
+    # 设置IO线程数, 它主要执行非阻塞的任务,它们会负责多个连接, 默认设置每个CPU核心一个线程
+    io-threads: 4
+    # 阻塞任务线程池, 当执行类似servlet请求阻塞操作, undertow会从这个线程池中取得线程,它的值设置取决于系统的负载
+    worker-threads: 20
+    # 以下的配置会影响buffer,这些buffer会用于服务器连接的IO操作,有点类似netty的池化内存管理
+    # 每块buffer的空间大小,越小的空间被利用越充分
+    buffer-size: 1024
+    # 是否分配的直接内存
+    direct-buffers: true
+
+spring:
+  datasource:
+    hikari:
+      maximum-pool-size: 500 #连接池最大连接数
+      minimum-idle: 5 #允许的最小空闲数
+      idle-timeout: 180000 #空闲超时是 180000 毫秒，当数据库连接的空闲时间大于180000毫秒时，这些空闲超时的连接会被关闭，直到超时的空闲连接数达到 minimum-idle的值
+      connection-test-query: select 1 # 测试连接是否可用的query 语句 在oracle是 select 1 from dual
+  #redis配置
+  redis:
+    lettuce:
+      pool:
+        max-active: 1000  # 连接池最大连接数（使用负值表示没有限制）
+        max-idle: 10      # 连接池中的最大空闲连接
+        min-idle: 5       # 连接池中的最小空闲连接
+        max-wait: 1000ms    # 连接池最大阻塞等待时间（使用负值表示没有限制）
