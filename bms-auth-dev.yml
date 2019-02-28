@@ -8,3 +8,8 @@ spring:
     host: 192.168.3.128
     port: 6379
     password:
+  rabbitmq:
+    host: 192.168.3.128
+    port: 5672
+    username: plei
+    password: plei
